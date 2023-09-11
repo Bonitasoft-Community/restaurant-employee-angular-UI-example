@@ -1,0 +1,17 @@
+<div>
+    <h1>{{ data.id }}: {{ data.displayName }}</h1>
+    <mat-list>
+        <mat-list-item><span>Date: {{ data.last_update_date }} </span></mat-list-item>
+        <li *ngFor="let param of data.params">
+            <ul style="margin: 0; padding: 0;">
+                <mat-list-item><span>{{param.name}}: {{param.value}}</span></mat-list-item>
+            </ul>
+        </li>
+    </mat-list>
+
+</div>
+<div>
+    <button mat-raised-button color="primary" (click)="onBack()">BACK</button>
+    <button mat-raised-button color="accent" (click)="onConfirm()">CONFIRM DELIVERY</button>
+
+</div>

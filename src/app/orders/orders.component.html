@@ -1,0 +1,11 @@
+<mat-list *ngIf="currentSelection == null">
+    <li *ngFor="let entry of data">
+        <ul style="margin: 0; padding: 0;">
+            <mat-list-item (click)="onclicData(entry)"><span>{{entry.id}}: {{entry.displayName}}</span></mat-list-item>
+            <mat-divider></mat-divider>
+        </ul>
+    </li>
+</mat-list>
+
+<app-order *ngIf="currentSelection" [data]="currentSelection" (back)="onBack()"
+    (confirmDelivery)="onConfirm()"></app-order>
