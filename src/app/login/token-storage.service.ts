@@ -12,7 +12,6 @@ const USER_KEY = 'auth-user';
 export class TokenStorageService implements OnInit {
   constructor(private cookieService: CookieService, private authService: AuthService) { }
   ngOnInit(): void {
-
   }
 
   signOut(): void {
@@ -21,11 +20,14 @@ export class TokenStorageService implements OnInit {
   }
 
   public saveToken(token: string): void {
+    //this.signOut()
+
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken(): string | null {
+
     let token = window.sessionStorage.getItem(TOKEN_KEY);
     if (token) {
       return token;

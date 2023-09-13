@@ -31,9 +31,6 @@ export class LoginComponent implements OnInit {
 
   addUserForm = new FormGroup({});
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-    }
   }
 
   onSubmit(): void {
@@ -41,6 +38,7 @@ export class LoginComponent implements OnInit {
     let user: any;
 
     this.authService.login(username, password).subscribe((response) => {
+      this.getSession()
       response.headers
         .keys()
         .forEach((keyName: string) =>
@@ -50,8 +48,6 @@ export class LoginComponent implements OnInit {
             )}`
           )
         )
-      this.tokenStorage.saveToken(this.cookieService.get('X-Bonita-API-Token'));
-      this.router.navigate(['/orders'])
 
     }).add(() => {
       if (!this.tokenStorage.getToken()) {
@@ -64,11 +60,16 @@ export class LoginComponent implements OnInit {
 
   }
 
+  /* Once login is successful, this method will let us retrieve the X-Bonita-API-Token
+  **
+  */
   getSession() {
     console.log('GET SESSION');
     this.authService.getCurrentSession()
       .subscribe(data => {
-        console.log(JSON.stringify(data));
+        this.tokenStorage.saveToken(data.headers.get('x-bonita-api-token'));
+        this.router.navigate(['/orders'])
+
       });
   }
 
